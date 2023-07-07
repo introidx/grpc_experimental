@@ -25,15 +25,16 @@ public class BusinessServiceImpl extends BusinessServiceGrpc.BusinessServiceImpl
     public void createUser(Business.UserRequest request, StreamObserver<Business.UserResponse> responseObserver) {
         try {
             String token = idempotencyService.checkIdempotency(request.toString());
-            Thread.sleep(20000);
+            Thread.sleep(20000); // ignore - only for testing purpose
             users.add(request);
-            idempotencyService.removeToken(token);
-            
+
             Business.UserResponse userResponse = Business.UserResponse.newBuilder()
                             .setName(request.getName())
                             .setAddress(request.getAddress())
                             .setPhone(request.getPhone())
                             .build();
+
+            idempotencyService.removeToken(token);
 
             responseObserver.onNext(userResponse);
             responseObserver.onCompleted();
