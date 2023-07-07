@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package com.introidx.grpcservice;
+
+service BusinessService{
+  rpc createUser (UserRequest) returns (UserResponse) {}
+}
+
+message UserRequest {
+  string name = 1;
+  string phone= 2;
+  string address=3;
+}
+
+message UserResponse {
+  string name = 1;
+  string phone= 2;
+  string address=3;
+}
+
+message ErrorResponse{
+  string localDateTime = 1;
+  string message = 2;
+  string details = 3;
+  string code = 4;
+}
